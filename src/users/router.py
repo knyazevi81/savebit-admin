@@ -7,6 +7,7 @@ from src.exceptions import IncorrectLoginOrPasswordException
 
 
 router = APIRouter(
+    prefix="/users",
     tags=["auth users endpoint"]
 )
 

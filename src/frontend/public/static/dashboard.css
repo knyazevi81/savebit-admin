@@ -1,0 +1,130 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #0B121F 0%, #131E32 100%);
+    font-family: 'Space Mono', monospace;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+}
+
+header {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    width: 100%;
+    padding: 1.5rem;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+header .menu-toggle {
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+header .menu-toggle:hover {
+    color: #1A73E8;
+}
+
+#main {
+    padding: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    text-align: center;
+}
+
+main h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+main p {
+    font-size: 1.2rem;
+    color: #ccc;
+    line-height: 1.6;
+}
+
+/* Выдвигающееся меню */
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #1A1D29;
+    overflow-x: hidden;
+    transition: 0.3s;
+    padding-top: 60px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.sidenav a {
+    padding: 1.2rem 2rem;
+    text-decoration: none;
+    font-size: 1.25rem;
+    color: #ccc;
+    display: block;
+    transition: 0.3s;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.sidenav a:hover {
+    color: #1A73E8;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 36px;
+    color: white;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+/* Анимация меню */
+@keyframes slideIn {
+    from { width: 0; }
+    to { width: 250px; }
+}
+
+@keyframes slideOut {
+    from { width: 250px; }
+    to { width: 0; }
+}
+
+/* Когда меню открыто */
+.sidenav.open {
+    width: 250px;
+    animation: slideIn 0.3s ease-in-out forwards;
+}
+
+.sidenav.close {
+    width: 0;
+    animation: slideOut 0.3s ease-in-out forwards;
+}
+
+/* Мобильные устройства */
+@media (max-width: 480px) {
+    main h1 {
+        font-size: 2rem;
+    }
+    main p {
+        font-size: 1rem;
+    }
+    .sidenav a {
+        font-size: 1rem;
+    }
+}

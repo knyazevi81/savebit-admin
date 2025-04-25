@@ -15,6 +15,18 @@ class JWTException(HTTPException):
     def __init__(self):
         super().__init__(status_code=self.status_code, detail=self.detail)
 
+class ServerException(HTTPException):
+    status_code: status = status.HTTP_401_UNAUTHORIZED
+    detail: str = ""
+
+    def __init__(self):
+        super().__init__(status_code=self.status_code, detail=self.detail)
+
+class ServerDisconnect(ServerException):
+    status_code: str = status.HTTP_404_NOT_FOUND,
+    detail: str = "I can't connect to the server"
+
+
 class UserAlreadyExist(UserException):
     status_code: str = status.HTTP_400_BAD_REQUEST
     detail: str = "User already exist"

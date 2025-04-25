@@ -6,7 +6,11 @@ from src.database import create_tables
 from src.users.service import UserService
 from src.users.auth import get_password_hash
 from src.config import settings
+
 from src.users.router import router as user_admin_router
+from src.servers.router import router as servers_router
+from src.frontend.router import router as frontend_router
+
 
 
 @asynccontextmanager
@@ -16,7 +20,6 @@ async def lifespan(app: FastAPI):
     existing_user = await UserService.find_one_or_none(login=settings.PREREG_LOGIN)
 
     if not existing_user:
-        
         hashed_password = get_password_hash(settings.PREREG_PASSWORD)
         await UserService.add(
             login=settings.PREREG_LOGIN,
@@ -31,6 +34,8 @@ def get_application() -> FastAPI:
     )
 
     _app.include_router(user_admin_router)
+    _app.include_router(servers_router)
+    _app.include_router(frontend_router)
 
     _app.mount("/static", StaticFiles(directory="src/frontend/public/static"), "static")
 

@@ -1,13 +1,14 @@
+from sqlalchemy.orm import mapped_column, Mapped, relationship
+from typing import List
 from src.database import Base
-from sqlalchemy import Column, Integer, String, BigInteger
 
 
 class Users(Base):
     __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True)
-    login = Column(String, nullable=False)
-    hashed_password = Column(String, nullable=False)
+    id: Mapped[int] = mapped_column(primary_key=True)
+    login: Mapped[str] = mapped_column(unique=True, nullable=False)
+    hashed_password: Mapped[str] = mapped_column(nullable=False)
 
     class Config:
-        orm_mode=True
+        from_attributes = True
