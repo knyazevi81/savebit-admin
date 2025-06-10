@@ -2,53 +2,72 @@ from fastapi import HTTPException, status
 
 
 class UserException(HTTPException):
-    status_code: status = status.HTTP_401_UNAUTHORIZED
-    detail: str = "Base user exception"
+    def __init__(
+        self,
+        detail: str = "Base user exception",
+        status_code: int = status.HTTP_401_UNAUTHORIZED,
+    ):
+        super().__init__(status_code=status_code, detail=detail)
 
-    def __init__(self):
-        super().__init__(status_code=self.status_code, detail=self.detail)
 
 class JWTException(HTTPException):
-    status_code: status = status.HTTP_401_UNAUTHORIZED
-    detail: str = ""
+    def __init__(
+        self, detail: str = "", status_code: int = status.HTTP_401_UNAUTHORIZED
+    ):
+        super().__init__(status_code=status_code, detail=detail)
 
-    def __init__(self):
-        super().__init__(status_code=self.status_code, detail=self.detail)
 
 class ServerException(HTTPException):
-    status_code: status = status.HTTP_401_UNAUTHORIZED
-    detail: str = ""
+    def __init__(
+        self, detail: str = "", status_code: int = status.HTTP_401_UNAUTHORIZED
+    ):
+        super().__init__(status_code=status_code, detail=detail)
 
-    def __init__(self):
-        super().__init__(status_code=self.status_code, detail=self.detail)
 
 class ServerDisconnect(ServerException):
-    status_code: str = status.HTTP_404_NOT_FOUND,
-    detail: str = "I can't connect to the server"
+    def __init__(self):
+        super().__init__(
+            detail="I can't connect to the server",
+            status_code=status.HTTP_404_NOT_FOUND,
+        )
 
 
 class UserAlreadyExist(UserException):
-    status_code: str = status.HTTP_400_BAD_REQUEST
-    detail: str = "User already exist"
+    def __init__(self):
+        super().__init__(
+            detail="User already exist", status_code=status.HTTP_400_BAD_REQUEST
+        )
+
 
 class IncorrectLoginOrPasswordException(UserException):
-    status_code: status
+    def __init__(self):
+        super().__init__(
+            detail="Incorrect login or password",
+            status_code=status.HTTP_401_UNAUTHORIZED,
+        )
+
 
 class TokenExpireException(JWTException):
-    status_code=status.HTTP_401_UNAUTHORIZED
-    detail="Токен истек"
+    def __init__(self):
+        super().__init__(detail="Токен истек", status_code=status.HTTP_401_UNAUTHORIZED)
 
 
 class TokenAbsentException(JWTException):
-    status_code=status.HTTP_401_UNAUTHORIZED
-    detail="Токен отсутствует"
+    def __init__(self):
+        super().__init__(
+            detail="Токен отсутствует", status_code=status.HTTP_401_UNAUTHORIZED
+        )
 
 
 class IncorrectTokenFormatException(JWTException):
-    status_code=status.HTTP_401_UNAUTHORIZED
-    detail="Неверный формат токена"
+    def __init__(self):
+        super().__init__(
+            detail="Неверный формат токена", status_code=status.HTTP_401_UNAUTHORIZED
+        )
 
 
 class UserIsNotPresentException(JWTException):
-    status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="none"
+    def __init__(self):
+        super().__init__(
+            detail="Пользователь не найден", status_code=status.HTTP_401_UNAUTHORIZED
+        )
