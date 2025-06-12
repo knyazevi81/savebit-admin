@@ -1,5 +1,4 @@
 from pydantic_settings import BaseSettings
-from pydantic import model_validator
 
 
 class Settings(BaseSettings):
@@ -11,4 +10,5 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
 
-settings = Settings()
+
+settings = Settings() # type: ignore
